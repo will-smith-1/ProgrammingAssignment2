@@ -2,7 +2,13 @@
 ## functions do
 
 ## Write a short comment describing this function
-##this is the makeCacheMatrix function. pretty damn cranky about it though.  Where was any of this in the lectures or Swirl?  The instructional design could use some work.  Creating gaps is good approach for triggering learing, but in this case, the gap is too large.
+
+## makeCacheMatrix generates a list containing options to
+## 1. set the matrix
+## 2. get the matrix
+## 3. set the inverse
+## 4. get the inverse
+## these options are used as the input to cacheSolve()
 
 makeCacheMatrix <- function(x = matrix()) {
   m<-NULL
@@ -19,7 +25,9 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 ## Write a short comment describing this function
-##this is the cacheSolve function
+## cacheSolve computes the inverse of a given matrix, but checks first if the inverse was already calculated.
+## if it was already calculated, it retreives it from cache, and avoids doing the calculation.  
+## if not cached, it calculates it and caches it. 
 
 cacheSolve <- function(x=matrix(), ...) {
   m<-x$getmatrix()
