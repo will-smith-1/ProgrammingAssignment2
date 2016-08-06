@@ -11,32 +11,31 @@
 ## these options are used as the input to cacheSolve()
 
 makeCacheMatrix <- function(x = matrix()) {
-  m<-NULL
-  set<-function(y){
-    x<<-y
-    m<<-NULL
+  cachedInverse <- NULL
+  set <- function(y) {
+    x <<- y
+    cachedInverse <<- NULL
   }
-  get<-function() x
-  setmatrix<-function(solve) m<<- solve
-  getmatrix<-function() m
-  list(set=set, get=get,
-       setmatrix=setmatrix,
-       getmatrix=getmatrix)
+  get <- function() x
+  setInverse <- function(inverse) cachedInverse <<- inverse
+  getInverse <- function() cachedInverse
+  list(set = set, get = get,
+       setInverse = setInverse,
+       getInverse = getInverse)
 }
 
 ## Write a short comment describing this function
 ## cacheSolve computes the inverse of a given matrix, but checks first if the inverse was already calculated.
 ## if it was already calculated, it retreives it from cache, and avoids doing the calculation.  
-## if not cached, it calculates it and caches it. 
 
-cacheSolve <- function(x=matrix(), ...) {
-  m<-x$getmatrix()
-  if(!is.null(m)){
-    message("getting cached data")
-    return(m)
+cacheSolve <- function(x, ...) {
+  invFunc <- x$getInverse()
+  if(!is.null(invFunc)) {
+    message("getting cached inverse matrix")
+    return(invFunc)
   }
-  matrix<-x$get()
-  m<-solve(matrix, ...)
-  x$setmatrix(m)
-  m
+  data <- x$get()
+  invFunc <- solve(data, ...)
+  x$setInverse(invFunc)
+  invFunc
 }
